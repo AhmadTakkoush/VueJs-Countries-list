@@ -1,23 +1,32 @@
 import Vue from "vue";
 import App from "./App";
-
 import VueRouter from "vue-router";
 
-import ProductCatalog from "./components/Home";
+import Home from "./components/Home";
 import Countrylist from "./components/Countrylist";
 
 // import some global styles
-import "../styles/style.scss";
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: "/home", alias: "/", component: ProductCatalog },
-  { path: "/Countrylist", component: Countrylist },
+  {
+    path: "/",
+    name: "home",
+    alias: "/home",
+    component: Home,
+  },
+  {
+    path: "/countrylist",
+    name: "countrylist",
+    component: Countrylist,
+  },
 ];
 
 // Create the router instance and pass the `routes` option
 const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
   routes,
 });
 

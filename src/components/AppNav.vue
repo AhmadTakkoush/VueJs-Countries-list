@@ -1,44 +1,44 @@
 <template>
-  <nav class="navbar navbar-expand-sm navbar-light navbar-jw">
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#appnav"
-      aria-controls="appnav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <div>
+    <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand href="#">Countries</b-navbar-brand>
 
-    <a class="navbar-brand" href="#">
-      <img src="../assets/logo.png" alt="Countries logo" /> Countries
-    </a>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <div class="collapse navbar-collapse" id="appnav">
-      <div class="nav navbar-nav">
-        <router-link
-          to="home"
-          class="nav-item nav-link"
-          active-class="active"
-          exact
-        >
-          Home
-        </router-link>
-        <router-link
-          to="Countrylist"
-          class="nav-item nav-link"
-          active-class="active"
-          exact
-        >
-          Country List
-        </router-link>
-      </div>
-    </div>
-  </nav>
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item
+            :active="routeCheck('home')"
+            :disabled="routeCheck('home')"
+            to="home"
+          >
+            Home
+          </b-nav-item>
+          <b-nav-item
+            :active="routeCheck('countrylist')"
+            :disabled="routeCheck('countrylist')"
+            to="countrylist"
+          >
+            Countrylist page
+          </b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "TheMainNav",
+  computed: {
+    route() {
+      return this.$route.name;
+    },
+  },
+  methods: {
+    routeCheck(routeName) {
+      return this.route === routeName;
+    },
+  },
+};
 </script>
