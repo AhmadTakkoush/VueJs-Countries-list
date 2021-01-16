@@ -18,15 +18,21 @@
     <!-- /pagination -->
 
     <!-- History Modal -->
-    <div>
-      <b-button v-b-modal.modal-1>View History</b-button>
-      <b-modal id="modal-1" title="History">
-        <p class="my-4">
-          <span>{{ this.printCountry }}</span>
-        </p>
-      </b-modal>
-    </div>
-
+    <b-container>
+      <b-row class="text-center" align-v="center">
+        <b-col>
+          <b-button
+            class="main-navigation-button"
+            variant="primary"
+            v-b-modal.modal-1
+            >View History</b-button
+          >
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-modal id="modal-1" title="History">
+      <p class="my-4">{{ history }}</p>
+    </b-modal>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <!-- a single row from an array  -->
       <div
@@ -38,7 +44,7 @@
         <div class="card shadow-sm">
           <img class="card-img-top" :src="country.flag" alt="Card image cap" />
           <div class="card-body">
-            <strong class="card-text" @click="handleClick(country)">
+            <strong @click="handleClick(country)">
               {{ country.name }}
             </strong>
 
@@ -79,6 +85,8 @@ export default {
       totalInPerPage: 20,
       countries: [],
       country: [],
+      index: 0,
+      history: [],
     };
   },
   mounted() {
@@ -113,8 +121,12 @@ export default {
         this.fetchData();
       }
     },
+
     handleClick(country) {
       console.log("Clicked on: " + country.name);
+      this.history[this.index] = country.name;
+      this.index = (this.index + 1) % 5;
+      this.fetchData();
     },
   },
 };
