@@ -17,23 +17,33 @@
     </div>
     <!-- /pagination -->
 
+    <!-- History Modal -->
+    <div>
+      <b-button v-b-modal.modal-1>View History</b-button>
+      <b-modal id="modal-1" title="History">
+        <p class="my-4">
+          <span>{{ this.printCountry }}</span>
+        </p>
+      </b-modal>
+    </div>
+
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <!-- a single row from an array  -->
-      <div class="col" v-for="(country, index) in countries" :key="index">
+      <div
+        class="col"
+        v-for="(country, index) in countries"
+        :key="index"
+        v-bind:value="countries.name"
+      >
         <div class="card shadow-sm">
           <img class="card-img-top" :src="country.flag" alt="Card image cap" />
           <div class="card-body">
-            <strong class="card-text">{{ country.name }}</strong>
+            <strong class="card-text" @click="handleClick(country)">
+              {{ country.name }}
+            </strong>
+
             <div class="d-flex justify-content-between align-items-center mt-2">
-              <div class="btn-group">
-                <button
-                  @click="handleClick"
-                  type="button"
-                  class="btn btn-sm btn-outline-secondary"
-                >
-                  Add to History
-                </button>
-              </div>
+              <div class="btn-group"></div>
             </div>
           </div>
         </div>
@@ -60,9 +70,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-window.EventBus = new Vue();
-
 export default {
   data() {
     return {
@@ -71,8 +78,7 @@ export default {
       last: 20,
       totalInPerPage: 20,
       countries: [],
-      detailsInfo: false,
-      btnShow: false,
+      country: [],
     };
   },
   mounted() {
@@ -107,9 +113,8 @@ export default {
         this.fetchData();
       }
     },
-    handleClick() {
-      console.log("countryClicked", this.country);
-      this.fetchData();
+    handleClick(country) {
+      console.log("Clicked on: " + country.name);
     },
   },
 };
