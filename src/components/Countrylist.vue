@@ -18,21 +18,8 @@
     <!-- /pagination -->
 
     <!-- History Modal -->
-    <b-container>
-      <b-row class="text-center" align-v="center">
-        <b-col>
-          <b-button
-            class="main-navigation-button"
-            variant="primary"
-            v-b-modal.modal-1
-            >View History</b-button
-          >
-        </b-col>
-      </b-row>
-    </b-container>
-    <b-modal id="modal-1" title="History">
-      <p class="my-4">{{ history }}</p>
-    </b-modal>
+    <modal history-props="test" />
+    <!-- /History Modal -->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <!-- a single row from an array  -->
       <div
@@ -76,7 +63,9 @@
 </template>
 
 <script>
+import Modal from "@/components/Modal";
 export default {
+  components: { Modal },
   data() {
     return {
       totalCounties: 250,
@@ -137,5 +126,8 @@ export default {
   width: 100%;
   height: 15vw;
   object-fit: cover;
+}
+strong {
+  cursor: pointer;
 }
 </style>
